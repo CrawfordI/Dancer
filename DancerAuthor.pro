@@ -13,10 +13,12 @@ TEMPLATE = app
 SOURCES += main.cpp\
         mainwindow.cpp \
     dancerlist.cpp \
-    dancerworkarea.cpp
+    dancerworkarea.cpp \
+    multiplechoicewidget.cpp
 
 HEADERS  += mainwindow.h \
     dancerlist.h \
-    dancerworkarea.h
+    dancerworkarea.h \
+    multiplechoicewidget.h
 
 FORMS    += mainwindow.ui

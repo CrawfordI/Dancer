@@ -6,10 +6,7 @@
 DancerList::DancerList(QWidget *parent) :
     QListWidget(parent)
 {    
-    QListWidgetItem *testItem1 = new QListWidgetItem("test1", this);
-    QListWidgetItem *testItem2 = new QListWidgetItem("test2", this);
-    testItem1->setToolTip("herp!");
-    testItem2->setToolTip("derp?");
+    QListWidgetItem *multiChoice = new QListWidgetItem("Multiple Choice", this);
 }
 
 void DancerList::mousePressEvent(QMouseEvent *event){

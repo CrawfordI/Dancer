@@ -1,4 +1,6 @@
 #include "dancerworkarea.h"
+#include "multiplechoicewidget.h"
+
 #include <QMessageBox>
 
 DancerWorkArea::DancerWorkArea(QWidget *parent) :
@@ -29,18 +31,20 @@ void DancerWorkArea::dropEvent(QDropEvent *event){
     const QMimeData *mimeData = event->mimeData();
     if(mimeData->hasFormat("application/x-dcomponent")){
         QString componentType;
-
+        QPoint pos = event->pos();
         QByteArray itemData = mimeData->data("application/x-dcomponent");
         QDataStream dataStream(&itemData, QIODevice::ReadOnly);
         dataStream >> componentType;
 
         //remove this
-        QMessageBox *mBox = new QMessageBox(this);
-        QString message = "Attempting to add a ";
-        message.append(componentType);
-        mBox->setText(message);
-        mBox->exec();
+
         //
+        if(componentType == "Multiple Choice"){
+           MultipleChoiceWidget *temp = new MultipleChoiceWidget(this);
+           temp->setGeometry(*(new QRect(pos.x(),pos.y(),400,100)));
+           temp->show();
+        }
+
     }
     else event->ignore();
 }
