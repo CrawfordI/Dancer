@@ -41,7 +41,7 @@ void DancerWorkArea::dropEvent(QDropEvent *event){
         //
         if(componentType == "Multiple Choice"){
            MultipleChoiceWidget *temp = new MultipleChoiceWidget(this);
-           temp->setGeometry(*(new QRect(pos.x(),pos.y(),400,100)));
+           temp->setGeometry( *(new QRect(event->pos(),temp->size())));
            temp->show();
         }
 

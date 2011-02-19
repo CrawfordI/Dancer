@@ -11,7 +11,6 @@ MultipleChoiceWidget::MultipleChoiceWidget(QWidget * parent) : QWidget(parent)
   box = new QButtonGroup;
   gridLayoutButtonGroup = new QGridLayout(this);
   randomizeAnswers = false;
-
   for (int i = 0; i < MIN_CHOICES; i++)
   {
     if(!randomizeAnswers) {
@@ -53,7 +52,8 @@ void MultipleChoiceWidget::addButton() {
     questions->append(button);
     box->addButton(button);
     gridLayoutButtonGroup->addWidget(button);
-    this->resize(130,150); //do a correct resize based on items...
+    if (button->width() > this->width())
+       this->resize(this->width(),questions->size()*button->height());
     this->update();
 }
 
