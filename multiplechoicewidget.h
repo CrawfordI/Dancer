@@ -30,6 +30,8 @@ private:
     int answer;
     bool randomizeAnswers;
 
+    void correctButtonSize(QRadioButton *button);
+
 
 private slots:
     void addButton();
