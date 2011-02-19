@@ -3,29 +3,22 @@
 #include <QPoint>
 #include <QAction>
 
+#define MIN_CHOICES 2
+
 MultipleChoiceWidget::MultipleChoiceWidget(QWidget * parent) : QWidget(parent)
 {
-  QRadioButton * b1 = new QRadioButton(tr("Insert Text1"), this);
-  QRadioButton * b2 = new QRadioButton(tr("Insert Text2"), this);
-  QRadioButton * b3 = new QRadioButton(tr("Insert Text3"), this);
-
   questions = new QList<QRadioButton *>;
   box = new QButtonGroup;
   gridLayoutButtonGroup = new QGridLayout(this);
   randomizeAnswers = false;
 
-  questions->append(b1);
-  questions->append(b2);
-  questions->append(b3);
-
-  for (int i = 0; i < questions->size(); i++)
+  for (int i = 0; i < MIN_CHOICES; i++)
   {
     if(!randomizeAnswers) {
-        box->addButton(questions->at(i));
+        addButton();
     } else {
         //TODO: RANDOMIZE
     }
-    gridLayoutButtonGroup->addWidget(questions->at(i));
   }
 
   box->setExclusive(true);
