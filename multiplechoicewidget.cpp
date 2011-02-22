@@ -6,6 +6,8 @@
 using namespace std;
 
 #define MIN_CHOICES 2
+#define MIN_BUTTONHEIGHT 20
+#define PAD_RADIOBUTTON 25
 
 MultipleChoiceWidget::MultipleChoiceWidget(QWidget * parent) : QWidget(parent)
 {
@@ -55,6 +57,8 @@ void MultipleChoiceWidget::menuPopup(const QPoint & point) {
 void MultipleChoiceWidget::addButton() {
     QSize newSize = this->size();
     QRadioButton * button = new QRadioButton(tr("Insert Text: New"), this);
+    //QFont *font = new QFont("Arial", 100);
+    //button->setFont(*font);
     correctButtonSize(button);
     questions->append(button);
     box->addButton(button);
@@ -72,9 +76,9 @@ void MultipleChoiceWidget::correctButtonSize(QRadioButton *button){
     QSize *newButtonSize = new QSize();
     newButtonSize->setWidth(
             metric.width(button->text(),button->text().length()) +
-            25 //not the measured value, Qt is retarded...
+            PAD_RADIOBUTTON
             );
-    newButtonSize->setHeight(max(metric.height(), 13));
+    newButtonSize->setHeight(max(metric.height(), MIN_BUTTONHEIGHT));
     button->resize(*newButtonSize);
 }
 
