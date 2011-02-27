@@ -16,11 +16,16 @@ protected:
     void dragEnterEvent(QDragEnterEvent *event);
     void dragMoveEvent(QDragMoveEvent *event);
     void dropEvent(QDropEvent *event);
+    void mousePressEvent(QMouseEvent *event);
 
 signals:
+    void moveWidgetRequest(const QPoint &, QString);
 
-public slots:
+private:
+    int numChildren;
 
+private slots:
+    void receiveSelectedWidget(int id);
 };
 
 #endif // DANCERWORKAREA_H

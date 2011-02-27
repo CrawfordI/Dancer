@@ -13,29 +13,29 @@ class MultipleChoiceWidget : public QWidget
     Q_OBJECT
 
 public:
-     MultipleChoiceWidget(QWidget *parent = 0);
+     MultipleChoiceWidget(QWidget *parent = 0, int id = 0);
     ~MultipleChoiceWidget();
 
 protected:
     void mousePressEvent(QMouseEvent *event);
     void menuPopup(const QPoint & point);
 
-//signals:
-//    void currentButtonsChanged(MultipleChoiceWidget mcw);
+signals:
+    void selectedWidget(int);
 
 private:
     QList<QRadioButton *> * questions;
     QButtonGroup * box;
     QGridLayout  * gridLayoutButtonGroup;
+    int id;
     int answer;
     bool randomizeAnswers;
-
     void correctButtonSize(QRadioButton *button);
-
 
 private slots:
     void addButton();
-//    void removeButton();
+  //void removeButton();
+    void moveWidget(const QPoint & point, QString id);
 };
 
 #endif // MULTIPLECHOICEWIDGET_H

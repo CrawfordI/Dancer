@@ -9,14 +9,18 @@ using namespace std;
 #define MIN_BUTTONHEIGHT 20
 #define PAD_RADIOBUTTON 25
 
-MultipleChoiceWidget::MultipleChoiceWidget(QWidget * parent) : QWidget(parent)
+MultipleChoiceWidget::MultipleChoiceWidget(QWidget * parent, int id) : QWidget(parent)
 {
+  this->id=id;
   questions = new QList<QRadioButton *>;
   box = new QButtonGroup;
   gridLayoutButtonGroup = new QGridLayout(this);
   gridLayoutButtonGroup->setMargin(0);
   randomizeAnswers = false;
-    this->resize(0,0);
+  this->resize(0,0);
+
+  connect(parent,SIGNAL(moveWidgetRequest(const QPoint&, QString)), this, SLOT(moveWidget(const QPoint&, QString)));
+
   for (int i = 0; i < MIN_CHOICES; i++)
   {
     if(!randomizeAnswers) {
@@ -28,17 +32,15 @@ MultipleChoiceWidget::MultipleChoiceWidget(QWidget * parent) : QWidget(parent)
 
   box->setExclusive(true);
 
-
 }
 
 void MultipleChoiceWidget::mousePressEvent(QMouseEvent *event) {
-    //if (event->buttons() & Qt::LeftButton) {
-       // dragPosition = event->globalPos() - frameGeometry().topLeft();
-         //    event->accept();
-         //}
-    if (event->buttons() & Qt::RightButton) {
-            menuPopup(event->pos());
-            event->accept();
+    if (event->buttons() & Qt::LeftButton) {
+        emit selectedWidget(id);
+    }
+    else if (event->buttons() & Qt::RightButton) {
+        menuPopup(event->pos());
+        event->accept();
     }
 }
 
@@ -52,6 +54,15 @@ void MultipleChoiceWidget::menuPopup(const QPoint & point) {
     connect(pAction1, SIGNAL(triggered()), this, SLOT(addButton()));
     //QAction* pItem = pPopup->exec(global);
     pPopup->exec(global);
+}
+
+void MultipleChoiceWidget::moveWidget(const QPoint &point, QString id) {
+    if (id.toInt()==this->id) {
+        this->setGeometry(*(new QRect(point, this->size())));
+        this->update();
+    } else {
+        //throw error!
+    }
 }
 
 void MultipleChoiceWidget::addButton() {
@@ -85,4 +96,5 @@ void MultipleChoiceWidget::correctButtonSize(QRadioButton *button){
 MultipleChoiceWidget::~MultipleChoiceWidget() {
     delete questions;
     delete box;
+    delete gridLayoutButtonGroup;
 }
