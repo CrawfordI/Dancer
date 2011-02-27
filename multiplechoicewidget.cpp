@@ -19,7 +19,7 @@ MultipleChoiceWidget::MultipleChoiceWidget(QWidget * parent, int id) : QWidget(p
   randomizeAnswers = false;
   this->resize(0,0);
 
-  connect(parent,SIGNAL(moveWidgetRequest(const QPoint&, QString)), this, SLOT(moveWidget(const QPoint&, QString)));
+  connect(parent,SIGNAL(moveWidgetRequest(const QPoint&, int)), this, SLOT(moveWidget(const QPoint&, int)));
 
   for (int i = 0; i < MIN_CHOICES; i++)
   {
@@ -56,8 +56,8 @@ void MultipleChoiceWidget::menuPopup(const QPoint & point) {
     pPopup->exec(global);
 }
 
-void MultipleChoiceWidget::moveWidget(const QPoint &point, QString id) {
-    if (id.toInt()==this->id) {
+void MultipleChoiceWidget::moveWidget(const QPoint &point, int id) {
+    if (id == this->id) {
         this->setGeometry(*(new QRect(point, this->size())));
         this->update();
     } else {

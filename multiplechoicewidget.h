@@ -35,7 +35,7 @@ private:
 private slots:
     void addButton();
   //void removeButton();
-    void moveWidget(const QPoint & point, QString id);
+    void moveWidget(const QPoint & point, int id);
 };
 
 #endif // MULTIPLECHOICEWIDGET_H

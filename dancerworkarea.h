@@ -19,7 +19,7 @@ protected:
     void mousePressEvent(QMouseEvent *event);
 
 signals:
-    void moveWidgetRequest(const QPoint &, QString);
+    void moveWidgetRequest(const QPoint &, int);
 
 private:
     int numChildren;
